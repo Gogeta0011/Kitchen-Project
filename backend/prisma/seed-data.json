@@ -1,0 +1,426 @@
+{
+  "recipes": [
+    {
+      "id": "smoky-arrabbiata",
+      "title": "Smoky Arrabbiata with Burnt Garlic",
+      "imageKey": "heroPasta",
+      "creatorUsername": "elena",
+      "rating": 4.9,
+      "reviews": 312,
+      "prepTime": "10 min",
+      "cookTime": "25 min",
+      "servings": 4,
+      "difficulty": "Easy",
+      "category": "Dinner",
+      "cuisine": "Italian",
+      "tags": [
+        "Pasta",
+        "Italian",
+        "Spicy",
+        "Weeknight"
+      ],
+      "description": "A loud, fragrant Roman classic given a modern, smoky twist with charred garlic and a whisper of pimentón.",
+      "diet": "Vegetarian",
+      "ingredients": [
+        {
+          "qty": "400g",
+          "item": "bronze-cut spaghetti"
+        },
+        {
+          "qty": "6",
+          "item": "garlic cloves, lightly crushed"
+        },
+        {
+          "qty": "2 tsp",
+          "item": "calabrian chili flakes"
+        },
+        {
+          "qty": "1 can",
+          "item": "San Marzano tomatoes"
+        },
+        {
+          "qty": "1/4 cup",
+          "item": "extra virgin olive oil"
+        },
+        {
+          "qty": "to taste",
+          "item": "sea salt and fresh basil"
+        }
+      ],
+      "steps": [
+        "Bring a large pot of well-salted water to the boil for the pasta.",
+        "Warm olive oil with the crushed garlic in a wide pan over medium-low heat until deeply golden.",
+        "Add chili flakes, swirl for 20 seconds, then crush in the tomatoes by hand. Simmer 12 minutes.",
+        "Cook pasta one minute shy of al dente, then finish in the sauce with pasta water.",
+        "Toss until glossy. Tear over basil and serve immediately."
+      ]
+    },
+    {
+      "id": "salted-honey-sourdough",
+      "title": "Salted Honey Sourdough",
+      "imageKey": "sourdough",
+      "creatorUsername": "marie",
+      "rating": 4.9,
+      "reviews": 824,
+      "prepTime": "30 min",
+      "cookTime": "45 min",
+      "servings": 8,
+      "difficulty": "Intermediate",
+      "category": "Baking",
+      "cuisine": "French",
+      "tags": [
+        "Bread",
+        "Sourdough",
+        "Weekend"
+      ],
+      "description": "A tender, honey-kissed crumb with a deeply blistered crust — the loaf that built our weekend ritual.",
+      "diet": "Vegetarian",
+      "ingredients": [
+        {
+          "qty": "500g",
+          "item": "bread flour"
+        },
+        {
+          "qty": "350g",
+          "item": "warm water"
+        },
+        {
+          "qty": "100g",
+          "item": "active sourdough starter"
+        },
+        {
+          "qty": "2 tbsp",
+          "item": "raw honey"
+        },
+        {
+          "qty": "10g",
+          "item": "fine sea salt"
+        }
+      ],
+      "steps": [
+        "Mix flour, water, starter, and honey. Rest 45 minutes.",
+        "Add salt, perform four sets of stretch and folds.",
+        "Bulk ferment until risen 50%. Shape, then cold proof overnight.",
+        "Bake at 240°C in a covered Dutch oven for 25 minutes, then uncovered for 20."
+      ]
+    },
+    {
+      "id": "walnut-basil-pesto",
+      "title": "Walnut & Basil Summer Pesto",
+      "imageKey": "pesto",
+      "creatorUsername": "elena",
+      "rating": 4.8,
+      "reviews": 210,
+      "prepTime": "10 min",
+      "cookTime": "12 min",
+      "servings": 4,
+      "difficulty": "Easy",
+      "category": "Quick Meals",
+      "cuisine": "Italian",
+      "tags": [
+        "Pasta",
+        "Vegetarian",
+        "Summer"
+      ],
+      "description": "Toasted walnuts and lemon zest brighten a classic pesto into a 20-minute weeknight hero.",
+      "diet": "Vegetarian",
+      "ingredients": [
+        {
+          "qty": "80g",
+          "item": "fresh basil leaves"
+        },
+        {
+          "qty": "60g",
+          "item": "toasted walnuts"
+        },
+        {
+          "qty": "50g",
+          "item": "parmesan, grated"
+        },
+        {
+          "qty": "1",
+          "item": "garlic clove"
+        },
+        {
+          "qty": "120ml",
+          "item": "extra virgin olive oil"
+        }
+      ],
+      "steps": [
+        "Pulse basil, walnuts, parmesan, and garlic in a food processor.",
+        "Stream in olive oil until silky.",
+        "Finish with lemon zest and salt."
+      ]
+    },
+    {
+      "id": "edible-flower-salad",
+      "title": "Early Spring Harvest Bowl",
+      "imageKey": "salad",
+      "creatorUsername": "sarah",
+      "rating": 4.7,
+      "reviews": 96,
+      "prepTime": "15 min",
+      "cookTime": "0 min",
+      "servings": 2,
+      "difficulty": "Easy",
+      "category": "Healthy",
+      "cuisine": "California",
+      "tags": [
+        "Vegan",
+        "Salad",
+        "Spring"
+      ],
+      "description": "Edible flowers, shaved radish, and champagne vinaigrette — pure season on a plate.",
+      "diet": "Vegan",
+      "ingredients": [
+        {
+          "qty": "2 handfuls",
+          "item": "mixed baby greens"
+        },
+        {
+          "qty": "6",
+          "item": "breakfast radishes, shaved"
+        },
+        {
+          "qty": "1/2 cup",
+          "item": "edible flowers"
+        },
+        {
+          "qty": "2 tbsp",
+          "item": "champagne vinegar"
+        }
+      ],
+      "steps": [
+        "Whisk vinegar and olive oil with salt.",
+        "Lay greens in a bowl and scatter radish coins.",
+        "Crown with edible flowers before serving."
+      ]
+    },
+    {
+      "id": "midnight-mousse",
+      "title": "Midnight Cocoa Mousse",
+      "imageKey": "chocolate",
+      "creatorUsername": "david",
+      "rating": 4.9,
+      "reviews": 433,
+      "prepTime": "20 min",
+      "cookTime": "0 min",
+      "servings": 6,
+      "difficulty": "Intermediate",
+      "category": "Desserts",
+      "cuisine": "French",
+      "tags": [
+        "Chocolate",
+        "Make-ahead"
+      ],
+      "description": "A bittersweet, two-bowl mousse that sets in three hours and disappears in three minutes.",
+      "diet": "Vegetarian",
+      "ingredients": [
+        {
+          "qty": "200g",
+          "item": "70% dark chocolate"
+        },
+        {
+          "qty": "4",
+          "item": "large eggs, separated"
+        },
+        {
+          "qty": "60g",
+          "item": "caster sugar"
+        },
+        {
+          "qty": "pinch",
+          "item": "flaky salt"
+        }
+      ],
+      "steps": [
+        "Melt chocolate gently over a bain-marie.",
+        "Whisk yolks with sugar; whip whites to soft peaks.",
+        "Fold together and chill 3 hours."
+      ]
+    },
+    {
+      "id": "lamination-croissant",
+      "title": "72-Hour Laminated Croissants",
+      "imageKey": "croissant",
+      "creatorUsername": "marie",
+      "rating": 4.8,
+      "reviews": 178,
+      "prepTime": "3 days",
+      "cookTime": "20 min",
+      "servings": 12,
+      "difficulty": "Advanced",
+      "category": "Baking",
+      "cuisine": "French",
+      "tags": [
+        "Pastry",
+        "Patience"
+      ],
+      "description": "Three days, three folds, and the most honey-coloured laminated layers you'll ever see at home.",
+      "diet": "Vegetarian",
+      "ingredients": [
+        {
+          "qty": "500g",
+          "item": "T55 flour"
+        },
+        {
+          "qty": "300ml",
+          "item": "cold milk"
+        },
+        {
+          "qty": "50g",
+          "item": "sugar"
+        },
+        {
+          "qty": "250g",
+          "item": "European butter"
+        }
+      ],
+      "steps": [
+        "Day 1: Mix dough, chill overnight.",
+        "Day 2: Encase butter and perform folds.",
+        "Day 3: Shape, proof, egg wash, and bake."
+      ]
+    },
+    {
+      "id": "lemon-pea-carbonara",
+      "title": "Lemon-Pea Carbonara",
+      "imageKey": "carbonara",
+      "creatorUsername": "sarah",
+      "rating": 4.9,
+      "reviews": 240,
+      "prepTime": "5 min",
+      "cookTime": "15 min",
+      "servings": 2,
+      "difficulty": "Easy",
+      "category": "Quick Meals",
+      "cuisine": "Italian",
+      "tags": [
+        "Pasta",
+        "Spring",
+        "20-min"
+      ],
+      "description": "A bright, peppery carbonara that swaps guanciale for sweet peas. Done in 20.",
+      "diet": "Vegetarian",
+      "ingredients": [
+        {
+          "qty": "200g",
+          "item": "rigatoni"
+        },
+        {
+          "qty": "1 cup",
+          "item": "fresh peas"
+        },
+        {
+          "qty": "2",
+          "item": "egg yolks"
+        },
+        {
+          "qty": "50g",
+          "item": "pecorino"
+        }
+      ],
+      "steps": [
+        "Cook pasta and peas together near the end.",
+        "Whisk yolks with cheese, lemon, and pepper.",
+        "Toss off heat with pasta water until silky."
+      ]
+    }
+  ],
+  "chefs": [
+    {
+      "username": "elena",
+      "name": "Elena Rossi",
+      "avatarKey": "elena",
+      "handle": "@elenarossi",
+      "bio": "Third-generation Italian home cook. Pasta, patience, and grandma's secrets.",
+      "specialty": "Handmade pasta",
+      "followers": 24800,
+      "following": 312
+    },
+    {
+      "username": "david",
+      "name": "David Wu",
+      "avatarKey": "david",
+      "handle": "@davidferments",
+      "bio": "Modern fermentation, ancient flavors. Based in Brooklyn.",
+      "specialty": "Fermentation",
+      "followers": 12400,
+      "following": 198
+    },
+    {
+      "username": "marie",
+      "name": "Nonna Marie",
+      "avatarKey": "marie",
+      "handle": "@nonnamarie",
+      "bio": "Sixty years at the same wooden table. Bread, biscuits, and stories.",
+      "specialty": "Classic baking",
+      "followers": 41200,
+      "following": 86
+    },
+    {
+      "username": "sarah",
+      "name": "Sarah Chen",
+      "avatarKey": "sarah",
+      "handle": "@sarahcooks",
+      "bio": "Plant-forward weeknight dinners that don't feel like a compromise.",
+      "specialty": "Plant-forward dinners",
+      "followers": 18300,
+      "following": 504
+    }
+  ],
+  "savedRecipes": [
+    {
+      "id": "saved-1",
+      "recipeId": "smoky-arrabbiata",
+      "collectionName": "Favorites",
+      "savedAt": "2026-06-13T05:00:00.000Z"
+    },
+    {
+      "id": "saved-2",
+      "recipeId": "walnut-basil-pesto",
+      "collectionName": "Quick Meals",
+      "savedAt": "2026-06-13T05:02:00.000Z"
+    },
+    {
+      "id": "saved-3",
+      "recipeId": "lemon-pea-carbonara",
+      "collectionName": "Quick Meals",
+      "savedAt": "2026-06-13T05:05:00.000Z"
+    }
+  ],
+  "favoriteChefs": [
+    {
+      "id": "chef-1",
+      "chefUsername": "elena",
+      "followedAt": "2026-06-13T05:00:00.000Z"
+    },
+    {
+      "id": "chef-2",
+      "chefUsername": "marie",
+      "followedAt": "2026-06-13T05:01:00.000Z"
+    }
+  ],
+  "pickerHistory": [
+    {
+      "id": "pick-1781331526909",
+      "preferences": {
+        "mood": "Cozy",
+        "mealType": "Dinner",
+        "timeAvailable": "30 min",
+        "dietPreference": "Vegetarian",
+        "ingredientsAvailable": [
+          "Pasta"
+        ]
+      },
+      "recipeId": "lemon-pea-carbonara",
+      "reasons": [
+        "Fits your 30 min time window.",
+        "Works with your Vegetarian preference.",
+        "Uses your Pasta direction.",
+        "Good fit for a cozy cooking mood."
+      ],
+      "createdAt": "2026-06-13T06:18:46.909Z"
+    }
+  ]
+}

@@ -1,0 +1,246 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-cream: var(--cream);
+  --color-paper: var(--paper);
+  --color-clay: var(--clay);
+  --color-clay-soft: var(--clay-soft);
+  --color-moss: var(--moss);
+  --color-earth: var(--earth);
+  --color-ink: var(--ink);
+
+  --shadow-clay: 0 20px 40px -20px color-mix(in oklab, var(--clay) 35%, transparent);
+  --shadow-soft: 0 10px 30px -12px color-mix(in oklab, var(--ink) 12%, transparent);
+  --shadow-card: 0 1px 4px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+  --shadow-card-hover: 0 8px 24px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.06);
+}
+
+/* ── Light mode ───────────────────────────────────────────── */
+:root {
+  --radius: 0.875rem;
+  --cream: #FDFBF7;
+  --paper: #F5F1E8;
+  --clay: #D96C4A;
+  --clay-soft: #E89478;
+  --moss: #707A5E;
+  --earth: #5C4B43;
+  --ink: #2D2A26;
+  --background: var(--cream);
+  --foreground: var(--ink);
+  --card: #ffffff;
+  --card-foreground: var(--ink);
+  --popover: #ffffff;
+  --popover-foreground: var(--ink);
+  --primary: var(--clay);
+  --primary-foreground: var(--cream);
+  --secondary: var(--paper);
+  --secondary-foreground: var(--ink);
+  --muted: var(--paper);
+  --muted-foreground: color-mix(in oklab, var(--ink) 55%, transparent);
+  --accent: var(--moss);
+  --accent-foreground: var(--cream);
+  --destructive: #b34a3a;
+  --destructive-foreground: var(--cream);
+  --border: color-mix(in oklab, var(--ink) 8%, transparent);
+  --input: color-mix(in oklab, var(--ink) 10%, transparent);
+  --ring: var(--clay);
+}
+
+/* ── Dark mode ────────────────────────────────────────────── */
+.dark {
+  --cream: #181816;
+  --paper: #222220;
+  --clay: #E8856B;
+  --clay-soft: #D96C4A;
+  --moss: #8FA87E;
+  --earth: #B09F96;
+  --ink: #ECEAE4;
+  --background: var(--cream);
+  --foreground: var(--ink);
+  --card: #272725;
+  --card-foreground: var(--ink);
+  --popover: #2e2e2b;
+  --popover-foreground: var(--ink);
+  --primary: var(--clay);
+  --primary-foreground: #181816;
+  --secondary: var(--paper);
+  --secondary-foreground: var(--ink);
+  --muted: #2a2a28;
+  --muted-foreground: color-mix(in oklab, var(--ink) 55%, transparent);
+  --accent: var(--moss);
+  --accent-foreground: #181816;
+  --destructive: #d97757;
+  --destructive-foreground: #181816;
+  --border: rgba(236,234,228,0.10);
+  --input: rgba(236,234,228,0.12);
+  --ring: var(--clay);
+  --shadow-card: 0 1px 4px rgba(0,0,0,0.35), 0 4px 12px rgba(0,0,0,0.25);
+  --shadow-card-hover: 0 8px 24px rgba(0,0,0,0.45), 0 2px 6px rgba(0,0,0,0.3);
+  --shadow-soft: 0 10px 30px rgba(0,0,0,0.35);
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
+@layer base {
+  * { border-color: var(--color-border); }
+  html, body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  .font-display { font-family: var(--font-display); font-optical-sizing: auto; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Dark mode form inputs */
+  .dark input, .dark textarea, .dark select {
+    background-color: var(--card);
+    color: var(--ink);
+    border-color: var(--border);
+  }
+  .dark input::placeholder, .dark textarea::placeholder {
+    color: color-mix(in oklab, var(--ink) 35%, transparent);
+  }
+}
+
+/* ── Performance-safe animations (transform + opacity only) ── */
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@utility animate-fade-up {
+  animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@utility animate-fade-in {
+  animation: fade-in 0.4s ease both;
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@utility animate-slide-up {
+  animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@utility animate-scale-in {
+  animation: scale-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Float: transform only, will-change promotes to own GPU layer */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+@utility animate-float {
+  animation: float 5s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Shimmer: transform-based for perf */
+@keyframes shimmer {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(100%); }
+}
+
+/* Stagger delays */
+.delay-100 { animation-delay: 0.10s; }
+.delay-200 { animation-delay: 0.20s; }
+.delay-300 { animation-delay: 0.30s; }
+.delay-400 { animation-delay: 0.40s; }
+.delay-500 { animation-delay: 0.50s; }
+.delay-600 { animation-delay: 0.60s; }
+
+/* ── Skeleton (no filter, no blur) ───────────────────────── */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-paper);
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--color-cream) 60%, transparent) 50%,
+    transparent 100%
+  );
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+/* ── Card hover (transform only, no filter) ──────────────── */
+.recipe-card-hover {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+.recipe-card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* ── Page entry ───────────────────────────────────────────── */
+.page-enter {
+  animation: fade-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ── Hero orbs — NO blur filter, solid opacity ───────────── */
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.18;
+}
+
+/* ── Cursor fixes ─────────────────────────────────────── */
+body { cursor: default; }
+a, button, [role="button"], label[for], input[type="checkbox"], input[type="radio"], select { cursor: pointer; }
+input, textarea { cursor: text; }
+[disabled], [aria-disabled="true"] { cursor: not-allowed; }
+.node { cursor: pointer; }

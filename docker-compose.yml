@@ -1,0 +1,23 @@
+# Local Postgres for development. Start with:  docker compose up -d
+# Matches the DATABASE_URL in .env.example (kitchen / kitchen_dev_pw / kitchen).
+services:
+  postgres:
+    image: postgres:16
+    container_name: kitchen-pg
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: kitchen
+      POSTGRES_PASSWORD: kitchen_dev_pw
+      POSTGRES_DB: kitchen
+    ports:
+      - "5432:5432"
+    volumes:
+      - kitchen_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kitchen -d kitchen"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  kitchen_pg_data:

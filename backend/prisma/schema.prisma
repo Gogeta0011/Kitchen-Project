@@ -1,0 +1,306 @@
+// Kitchen Platform — full schema (Postgres), faithful port of the running app.
+//
+// Improvements over the old sql.js/SQLite schema:
+//   1. ingredients/steps normalized into real tables (was ingredientsJson/stepsJson)
+//   2. Chef merged into User (was two tables; Recipe linked to both)
+// Everything else (comments, ratings, likes, collections, follows, notifications,
+// picker history, audit log) is preserved so the app + frontend keep working.
+//
+// NOTE: the backend (server.cjs) is being rewired to this; until that lands the
+// app still runs on the old backend/prisma/dev.db SQLite database.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Accounts (Chef merged into User) ──────────────────────────────────────────
+model User {
+  id       String  @id @default(cuid())
+  username String  @unique
+  email    String  @unique
+  password String
+  isAdmin  Boolean @default(false)
+
+  // email verification (preserved from the old User table)
+  emailVerified            Boolean   @default(true)
+  verificationToken        String?
+  verificationTokenExpires DateTime?
+
+  // public "Chef" profile fields (merged in)
+  name      String  @default("")
+  avatarKey String  @default("")
+  avatarUrl String?
+  coverUrl  String?
+  handle    String  @default("")
+  bio       String  @default("")
+  specialty String  @default("")
+  followers Int     @default(0)
+  following Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  recipes       Recipe[]
+  comments      Comment[]
+  ratings       Rating[]
+  likes         RecipeLike[]
+  collections   Collection[]
+  savedRecipes  SavedRecipe[]
+  followingRows Follow[]       @relation("Follower")
+  followerRows  Follow[]       @relation("Following")
+  notifications Notification[]
+  auditLogs     AuditLog[]
+  cartItems     CartItem[]
+}
+
+// ─── Recipes ───────────────────────────────────────────────────────────────────
+model Recipe {
+  id          String   @id @default(cuid())
+  title       String
+  imageKey    String   @default("")
+  imageUrl    String?
+  creatorId   String
+  rating      Float    @default(0) // denormalized average (updated on rate)
+  reviews     Int      @default(0) // denormalized count
+  prepTime    String   @default("")
+  cookTime    String   @default("")
+  servings    Int      @default(1)
+  difficulty  String   @default("")
+  category    String   @default("")
+  cuisine     String   @default("")
+  description String   @default("")
+  diet        String   @default("Anything")
+  tags        String[] @default([]) // was tagsJson
+  deletedAt   DateTime? // soft delete
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  creator     User               @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  steps       RecipeStep[]
+  ingredients RecipeIngredient[]
+  comments    Comment[]
+  ratings     Rating[]
+  likes       RecipeLike[]
+  collections CollectionRecipe[]
+  savedBy     SavedRecipe[]
+  pickerRows  PickerHistory[]
+
+  @@index([creatorId])
+  @@index([category])
+  @@index([cuisine])
+  @@index([deletedAt])
+}
+
+model RecipeStep {
+  id       String @id @default(cuid())
+  recipeId String
+  stepNo   Int
+  text     String
+
+  recipe Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+
+  @@unique([recipeId, stepNo])
+  @@index([recipeId])
+}
+
+model Ingredient {
+  id          String  @id @default(cuid())
+  name        String  @unique
+  defaultUnit String?
+
+  recipes RecipeIngredient[]
+}
+
+model RecipeIngredient {
+  id           String  @id @default(cuid())
+  recipeId     String
+  ingredientId String
+  quantity     String? // the old "qty" (free text, e.g. "2 cups")
+  unit         String?
+  position     Int     @default(0) // preserves ingredient order
+
+  recipe     Recipe     @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  ingredient Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
+
+  @@unique([recipeId, ingredientId])
+  @@index([recipeId])
+  @@index([ingredientId])
+}
+
+// ─── Engagement ──────────────────────────────────────────────────────────────
+model Comment {
+  id        String   @id @default(cuid())
+  recipeId  String
+  userId    String
+  body      String
+  createdAt DateTime @default(now())
+
+  recipe Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([recipeId])
+  @@index([userId])
+}
+
+model Rating {
+  id        String   @id @default(cuid())
+  recipeId  String
+  userId    String
+  stars     Int
+  createdAt DateTime @default(now())
+
+  recipe Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([recipeId, userId]) // one rating per user per recipe
+  @@index([recipeId])
+}
+
+model RecipeLike {
+  id        String   @id @default(cuid())
+  recipeId  String
+  userId    String
+  createdAt DateTime @default(now())
+
+  recipe Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([recipeId, userId])
+  @@index([recipeId])
+}
+
+// ─── Collections (named lists of recipes) ───────────────────────────────────────
+model Collection {
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  createdAt DateTime @default(now())
+
+  user    User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  recipes CollectionRecipe[]
+
+  @@unique([userId, name])
+  @@index([userId])
+}
+
+model CollectionRecipe {
+  id           String   @id @default(cuid())
+  collectionId String
+  recipeId     String
+  addedAt      DateTime @default(now())
+
+  collection Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  recipe     Recipe     @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+
+  @@unique([collectionId, recipeId])
+  @@index([collectionId])
+  @@index([recipeId])
+}
+
+// ─── SavedRecipe (legacy favorites — kept for API compatibility) ─────────────────
+model SavedRecipe {
+  id             String   @id @default(cuid())
+  userId         String
+  recipeId       String
+  collectionName String   @default("Favorites")
+  savedAt        DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  recipe Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, recipeId])
+  @@index([userId])
+  @@index([recipeId])
+}
+
+// ─── Follow (was FavoriteChef; now user-follows-user since Chef merged) ──────────
+model Follow {
+  id          String   @id @default(cuid())
+  followerId  String // the user who follows
+  followingId String // the user (chef) being followed
+  followedAt  DateTime @default(now())
+
+  follower  User @relation("Follower", fields: [followerId], references: [id], onDelete: Cascade)
+  following User @relation("Following", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followingId])
+  @@index([followerId])
+  @@index([followingId])
+}
+
+// ─── Notifications ──────────────────────────────────────────────────────────────
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String // recipient
+  type      String // comment | like | follow | rating
+  actorId   String? // who triggered it (loose ref, not enforced — matches old schema)
+  recipeId  String?
+  body      String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+// ─── Recipe picker audit trail ──────────────────────────────────────────────────
+model PickerHistory {
+  id              String   @id @default(cuid())
+  preferencesJson String
+  recipeId        String
+  reasonsJson     String
+  createdAt       DateTime @default(now())
+
+  recipe Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+
+  @@index([recipeId])
+}
+
+// ─── Audit log ──────────────────────────────────────────────────────────────────
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String?
+  resource  String?
+  status    String?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+}
+
+// ─── Commerce (whiteboard "Product Table" — no routes yet, future-facing) ────────
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  price       Decimal  @db.Decimal(10, 2)
+  stock       Int      @default(0)
+  imageKey    String?
+  createdAt   DateTime @default(now())
+
+  cartItems CartItem[]
+}
+
+model CartItem {
+  id        String @id @default(cuid())
+  userId    String
+  productId String
+  quantity  Int    @default(1)
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
+  @@index([userId])
+  @@index([productId])
+}
