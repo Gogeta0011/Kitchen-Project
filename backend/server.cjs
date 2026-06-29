@@ -913,6 +913,33 @@ if (fs.existsSync(distPath)) {
     return send(res, 200, fs.readFileSync(path.join(distPath, "index.html")), { "Content-Type": "text/html" });
   }
 }
+    // ────────────────────────────────────────────────────────────
+// ── Serve Frontend Static Files from dist/ ──────────────────
+// ────────────────────────────────────────────────────────────
+const distPath = path.join(__dirname, "../dist");
+if (fs.existsSync(distPath)) {
+  // Try to serve the requested file
+  let filePath = path.join(distPath, url.pathname === "/" ? "index.html" : url.pathname);
+  
+  if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+    const content = fs.readFileSync(filePath);
+    const ext = path.extname(filePath);
+    const mimeTypes = { ... };
+    const contentType = mimeTypes[ext] || "application/octet-stream";
+    res.writeHead(200, { "Content-Type": contentType, ...SECURITY_HEADERS });
+    res.end(content);
+    return;
+  }
+  
+  // Fallback to index.html for SPA routing
+  const indexPath = path.join(distPath, "index.html");
+  if (fs.existsSync(indexPath)) {
+    const content = fs.readFileSync(indexPath);
+    res.writeHead(200, { "Content-Type": "text/html", ...SECURITY_HEADERS });
+    res.end(content);
+    return;
+  }
+}
 
 return send(res, 404, { error: "Not found" });
 
