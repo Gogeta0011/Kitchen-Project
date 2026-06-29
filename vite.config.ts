@@ -12,4 +12,11 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  // Lovable's nitro deploy plugin is OFF by default outside their sandbox.
+  // Turn it on explicitly and target Render.com's own nitro preset, which
+  // builds a real Node server (extends "node-server") and also serves our
+  // built static client assets — so Render only needs to run one process.
+  nitro: {
+    preset: "render-com",
+  },
 });
