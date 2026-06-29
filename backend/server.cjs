@@ -889,7 +889,32 @@ async function handle(req, res) {
       return send(res, 200, { ok: true, message: "All data cleared" });
     }
 
-    return send(res, 404, { error: "Not found" });
+   // ── Serve Frontend Static Files ────────────────────────────
+const path = require("path");
+const fs = require("fs");
+
+// Serve static files from dist/
+const distPath = path.join(__dirname, "../dist");
+if (fs.existsSync(distPath)) {
+  const filePath = path.join(distPath, url.pathname === "/" ? "index.html" : url.pathname);
+  if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+    const content = fs.readFileSync(filePath);
+    const ext = path.extname(filePath);
+    const mimeTypes = {
+      ".html": "text/html", ".js": "application/javascript", ".css": "text/css",
+      ".json": "application/json", ".png": "image/png", ".jpg": "image/jpeg",
+      ".svg": "image/svg+xml", ".woff": "font/woff", ".woff2": "font/woff2",
+    };
+    const contentType = mimeTypes[ext] || "application/octet-stream";
+    return send(res, 200, content, { "Content-Type": contentType });
+  }
+  // Fallback to index.html for SPA routing
+  if (fs.existsSync(path.join(distPath, "index.html"))) {
+    return send(res, 200, fs.readFileSync(path.join(distPath, "index.html")), { "Content-Type": "text/html" });
+  }
+}
+
+return send(res, 404, { error: "Not found" });
 
   } catch (err) {
     const status = err.status || 500;
